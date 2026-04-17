@@ -1,0 +1,13 @@
+export {default as Splash} from './Splash/Splash';
+export {default as Login} from './Login/Login';
+export {default as Signup} from './Signup/Signup';
+export {default as Home} from './Home/Home';
+export {default as Setting} from './Setting/Setting';
+export {default as Account} from './Account/Account';
+export {default as Cart} from './Cart/Cart';
+export {default as Orders} from './Orders/Orders';
+export {default as OrderDetails} from './OrderDetails/OrderDetails';
+export {default as ProductDetails} from './ProductDetails/ProductDetails';
+export {default as Address} from './Address/Address';
+export {default as CreateAddress} from './CreateAddress/CreateAddress';
+export {default as UpdateAddress} from './UpdateAddress/UpdateAddress';
