@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native-paper';
 
-const ButtonC = ({ title, mode, buttonStyle, rippleColor, textColor, loading, disabled, icon, onPress }: any) => {
+const ButtonC = ({ title, mode, buttonStyle, rippleColor, textColor, loading, disabled, icon, onPress, lableStyle }: any) => {
     return (
         <Button
             mode={mode}
@@ -12,6 +12,7 @@ const ButtonC = ({ title, mode, buttonStyle, rippleColor, textColor, loading, di
             disabled={disabled}
             icon={icon}
             onPress={onPress}
+            labelStyle={lableStyle}
         >
             {title}
         </Button>

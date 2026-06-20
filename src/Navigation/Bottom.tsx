@@ -2,13 +2,19 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Screens from '../Screens/Screens';
 import Icon from '@react-native-vector-icons/material-design-icons'
+import { useTheme } from 'react-native-paper';
 
 const Tab = createBottomTabNavigator();
 const Bottom = () => {
+    const { colors } = useTheme();
     return (
         // icon kaise lagaye
         <Tab.Navigator screenOptions={{
-            headerShown: false
+            headerShown: false,
+            tabBarStyle: {
+                backgroundColor: colors.background
+            },
+            tabBarActiveTintColor: colors.secondary
         }}
         >
             <Tab.Screen name="Home" component={Screens.Home}

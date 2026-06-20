@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { Loader } from '../../Components/Components';
 
 const Splash = () => {
   return (
-    <View>
-      <Text></Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Loader
+        color='red'
+        size='large'
+      />
     </View>
   );
 }

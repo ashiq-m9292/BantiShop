@@ -9,7 +9,7 @@ import { lightTheme, darkTheme } from './src/Styles/Colors';
 
 
 const MainApp = () => {
-  const darkMode = useSelector((state: any) => state.DARKMODE.darkMode);
+  const { darkMode } = useSelector((state: any) => state.DARK_MODE);
   const theme = darkMode ? darkTheme : lightTheme;
   return (
     <PaperProvider theme={theme}>

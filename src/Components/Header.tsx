@@ -1,63 +1,81 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Appbar, Avatar, Switch } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleDarkMode } from '../Redux/Actions/DarkModeAction';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Appbar, Avatar, Switch, useTheme, Text, Badge } from 'react-native-paper';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
+import Icon from '@react-native-vector-icons/material-design-icons';
+
 
 const Header = ({
     backAction,
     onBackPress,
     avatar,
+    avatarSource,
+    avatarOnPress,
+    hTitle,
     title,
     showSwitch,
+    value,
+    onValueChange,
     search,
     searchOnPress,
     cart,
-    cartOnPress
+    cartOnPress,
+    badge
 }: any) => {
-    const darkMode = useSelector((state: any) => state.DARKMODE.darkMode);
-    const dispatch = useDispatch<any>();
-
-    const handleSwith = () => {
-        dispatch(toggleDarkMode());
-    };
+    const { colors } = useTheme();
 
     return (
         <Appbar.Header
-            style={styles.headerContainer}
-            statusBarHeight={0}
+            style={[styles.headerContainer, { backgroundColor: colors.background }]}
+            statusBarHeight={10}
         >
             {/* left section */}
             <View style={styles.leftSection}>
                 {backAction && (
-                    <Appbar.BackAction onPress={onBackPress} />
+                    <TouchableOpacity onPress={onBackPress}>
+                        <Icon name="arrow-left" size={moderateScale(24)} color={colors.onBackground} />
+                    </TouchableOpacity>
                 )}
 
                 {avatar && (
-                    <Avatar.Image size={30} source={avatar} />
+                    <TouchableOpacity onPress={avatarOnPress}>
+                        <Avatar.Image size={moderateScale(40)} source={avatarSource} />
+                    </TouchableOpacity>
                 )}
 
                 {title && (
-                    <Appbar.Content title={title} style={{ flex: 0, }} titleStyle={{ fontSize: 18 }} />
+                    <Text variant='titleMedium' style={{ color: colors.onBackground, fontWeight: 'bold' }}>{title}</Text>
+
                 )}
             </View>
 
             {/* center section */}
             <View style={styles.centerSection}>
+                {
+                    hTitle && (
+                        <Text variant='titleLarge' style={{ color: colors.onBackground, fontWeight: 'bold' }}>Banti Shop</Text>
+                    )
+                }
                 {showSwitch && (
-                    <Switch value={darkMode} onValueChange={handleSwith} style={{ elevation: 0, shadowColor: 'transparent' }} />
+                    <Switch value={value} onValueChange={onValueChange} color={colors.onBackground} />
                 )}
             </View>
 
             {/* right section  */}
             <View style={styles.rightSection}>
                 {search && (
-                    <Appbar.Action icon="magnify" onPress={searchOnPress} />
+                    <TouchableOpacity>
+                        <Icon name="magnify" size={moderateScale(24)} color={colors.onBackground} onPress={searchOnPress} />
+                    </TouchableOpacity>
                 )}
 
                 {cart && (
-                    <Appbar.Action icon="cart" onPress={cartOnPress} style={{ marginRight: -4 }} />
+                    <TouchableOpacity>
+                        <Icon name="cart" size={moderateScale(24)} color={colors.onBackground} onPress={cartOnPress} />
+                        <Badge size={moderateScale(16)} style={{ position: 'absolute', top: -5, right: -5, backgroundColor: colors.secondary, color: colors.onBackground }} >
+                            {badge}
+                        </Badge>
+                    </TouchableOpacity>
                 )}
             </View>
         </Appbar.Header>
@@ -68,23 +86,34 @@ export default Header;
 
 const styles = StyleSheet.create({
     headerContainer: {
-        width: '100%',
+        marginHorizontal: moderateScale(10),
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginVertical: verticalScale(10),
+        position: 'relative',
     },
     leftSection: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: moderateScale(12),
-        marginLeft: moderateScale(6)
+        gap: verticalScale(16),
+        position: 'absolute',
+        left: 0,
     },
     rightSection: {
         flexDirection: 'row',
         alignItems: 'center',
+        gap: verticalScale(16),
+        position: 'absolute',
+        right: 0,
     },
     centerSection: {
-        top: verticalScale(14),
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: verticalScale(16),
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        textAlign: 'center',
     }
 });

@@ -1,19 +1,31 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Card, Text, useTheme } from 'react-native-paper';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import Icon from '@react-native-vector-icons/material-design-icons';
 import { DividerC, IconwithButton } from '../Components/Components';
 
-const ListProduct = ({ cardContainer,cardContainerCopy, onPress, cartContainerStyle, cartBody, imageStyle, contentStyle, source, name, price, showButtonIcon, showIcon }: any) => {
+const ListProduct = ({ cardContainer, onPress, cartContainerStyle, cartBody, imageStyle, contentStyle, source, name, price, more, cartQuantity, showMoreDetails, category, brand, showButtonIcon, showIcon, size, quantity, minusonPress, plusonPress, cartOnPress, heartOnPress, color }: any) => {
+    const { colors } = useTheme();
     return (
-        <Card style={[styles.cardContainer, cardContainerCopy]} contentStyle={cartContainerStyle} onPress={onPress}>
+        <Card style={[styles.cardContainer, cardContainer, { backgroundColor: colors.background }]} contentStyle={cartContainerStyle} onPress={onPress}>
             <View style={[styles.cardBody, cartBody]}>
-                <Card.Cover source={source} style={[styles.imageStyle, imageStyle]} />
+                <Card.Cover source={source} style={imageStyle} />
                 <Card.Content style={[styles.contentStyle, contentStyle]}>
-                    <Text variant="titleMedium">{name}</Text>
-                    <Text variant="bodyMedium">{price}</Text>
-                    <Text variant="bodyMedium">Category</Text>
+                    <Text variant="titleMedium" style={{ color: colors.onBackground, fontWeight: 'bold' }}>{name}</Text>
+                    <Text variant="bodyMedium" style={{ color: colors.onBackground, fontWeight: 'bold' }}>{price}</Text>
+                    <Text variant="bodyMedium" style={{ color: colors.onBackground, fontWeight: 'bold' }}>{category}</Text>
+                    {cartQuantity && <Text variant="bodyMedium" style={{ color: colors.onBackground, fontWeight: 'bold' }}>{cartQuantity}</Text>}
+                    {
+                        showMoreDetails && (
+                            <>
+                                <Text variant="bodyMedium">{brand}</Text>
+                                <Text variant="bodyMedium">{size}</Text>
+                                <Text variant="bodyMedium">{more}</Text>
+                            </>
+                        )
+                    }
+
                 </Card.Content>
             </View>
 
@@ -21,9 +33,9 @@ const ListProduct = ({ cardContainer,cardContainerCopy, onPress, cartContainerSt
             {
                 showButtonIcon && (
                     <View style={styles.buttonContainerStyle}>
-                        <IconwithButton icon='minus' size={30} />
-                        <Text variant='titleMedium'>1</Text>
-                        <IconwithButton icon='plus' size={30} />
+                        <IconwithButton icon='minus' size={30} onPress={minusonPress} />
+                        <Text variant='titleMedium'>{quantity}</Text>
+                        <IconwithButton icon='plus' size={30} onPress={plusonPress} />
                     </View>
                 )
             }
@@ -34,8 +46,12 @@ const ListProduct = ({ cardContainer,cardContainerCopy, onPress, cartContainerSt
                     <View style={styles.iconContainer}>
                         <DividerC />
                         <View style={styles.iconStyle}>
-                            <Icon name='delete' size={30} />
-                            <Icon name='heart' size={30} />
+                            <TouchableOpacity onPress={cartOnPress}>
+                                <Icon name='delete' size={30} color={"grey"} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={heartOnPress}>
+                                <Icon name='heart' size={30} color={color} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 )
@@ -48,7 +64,7 @@ export default ListProduct;
 
 const styles = StyleSheet.create({
     cardContainer: {
-        margin: moderateScale(14),
+        margin: moderateScale(10),
     },
     cardBody: {
         flexDirection: 'row',
@@ -56,11 +72,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     imageStyle: {
-        width: '30%',
-        height: verticalScale(80),
-        resizeMode: 'cover',
+        // width: '30%',
+        // height: verticalScale(80),
+        // resizeMode: 'cover',
     },
     contentStyle: {
+        flex: 1,
         gap: 10
     },
     buttonContainerStyle: {

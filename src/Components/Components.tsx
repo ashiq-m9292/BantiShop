@@ -1,6 +1,7 @@
 export { default as Header } from './Header';
 export { default as Carousel } from './Carousel';
 export { default as Slider } from './Slider';
+export { default as RecentlyC } from './RecentlyC';
 export { default as GridProduct } from './GridProduct';
 export { default as ButtonC } from './ButtonC';
 export { default as DividerC } from './DividerC';
@@ -9,3 +10,7 @@ export { default as ListProduct } from './ListProduct';
 export { default as IconwithButton } from './IconwithButton';
 export {default as ProductSizeC} from './ProductSizeC';
 export { default as InputC } from './InputC';
+export {default as Loader} from './Loader';
+export {default as DefaultAddress} from './DefaultAddress';
+export {default as PriceChart} from './PriceChart';
+export {default as TextCenter} from './TextCenter';

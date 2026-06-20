@@ -9,7 +9,7 @@ export const lightTheme = {
         primary: '#3f51b5',
         secondary: '#009688',
         error: '#f44336',
-        text: '#333333'
+        onBackground: '#000000',
     },
 };
 
@@ -21,6 +21,6 @@ export const darkTheme = {
         primary: '#3f51b5',
         secondary: '#009688',
         error: '#f44336',
-        text: '#ffffff'
+        onBackground: '#ffffff',
     },
 };

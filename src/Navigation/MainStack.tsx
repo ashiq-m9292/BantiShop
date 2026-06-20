@@ -23,6 +23,18 @@ const MainStack = () => {
 
             <Stack.Screen name="UpdateAddress" component={Screens.UpdateAddress} />
 
+            <Stack.Screen name="WishList" component={Screens.WishList} />
+
+            <Stack.Screen name="ReviewProduct" component={Screens.ReviewProduct} />
+
+            <Stack.Screen name="Payment" component={Screens.Payment} />
+
+            <Stack.Screen name="Thanks" component={Screens.Thanks} />
+
+            <Stack.Screen name="CategoryProduct" component={Screens.CategoryProduct} />
+
+            <Stack.Screen name="SearchScreen" component={Screens.SearchScreen} />
+
         </Stack.Navigator>
     );
 }

@@ -1,42 +1,40 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
-import { moderateScale, scale } from 'react-native-size-matters';
+import { Text, useTheme } from 'react-native-paper';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
-// reusable component
-const ProductSizeC = ({ selectedSize, price, name }: any) => {
-    const size = [
-        'S',
-        'M',
-        'L',
-        'XL',
-        'XXL',
-    ];
+
+const ProductSizeC = ({ selectedSize, setSelectedSize, sizeTitle, sizes, price, name, discription }: any) => {
+    const { colors } = useTheme();
+    const safeMode = Array.isArray(sizes) ? sizes : [];
     return (
-        <View style={styles.container}>
-            <Text variant='titleMedium'>{selectedSize}</Text>
+        <View style={[styles.container, { backgroundColor: colors.background }]}>
+            {/* name and description  */}
+            <View style={styles.nameAndDescription}>
+                <Text variant='titleLarge' style={{ fontWeight: 'bold', color: colors.onBackground }}>{name}</Text>
+                <Text variant='bodyMedium' style={{ color: colors.onBackground, fontWeight: 'bold' }}>{discription}</Text>
+            </View>
+
+            <Text variant='titleLarge' style={{ fontWeight: 'bold', color: colors.onBackground }}>{sizeTitle}</Text>
             <View style={styles.productSizeContainer}>
+
                 {
-                    size.map((item, index) => (
-                        <TouchableOpacity key={index} style={styles.bodyContainer}>
-                            <Text key={index}>{item}</Text>
+                    safeMode.map((item: any, index: any) => (
+                        <TouchableOpacity
+                            key={index}
+                            activeOpacity={0.6}
+                            disabled={selectedSize === item}
+                            style={[styles.bodyContainer, { backgroundColor: selectedSize === item ? colors.primary : colors.secondary }]}
+                            onPress={() => setSelectedSize(item)}
+                        >
+                            <Text variant='bodyMedium' key={index}>{item?.size}</Text>
                         </TouchableOpacity>
                     ))
                 }
             </View>
 
-            {/* name and description */}
-            <View>
-                <Text variant='titleLarge'>{name}</Text>
-                <Text>dkdkdkdkdkkkdkdk Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque soluta repellendus minus fuga at, facere numquam autem libero odit ex.</Text>
-            </View>
-
             {/* price  */}
-            <View>
-                <Text variant='displaySmall'>{price}</Text>
-            </View>
-
-
+            <Text variant='displaySmall' style={{ fontWeight: 'bold', color: colors.onBackground }}>{price}</Text>
         </View>
     );
 }
@@ -49,17 +47,19 @@ const styles = StyleSheet.create({
         marginVertical: moderateScale(12),
         gap: moderateScale(24),
     },
+    nameAndDescription: {
+        gap: moderateScale(6),
+    },
     productSizeContainer: {
         flexDirection: 'row',
         gap: moderateScale(12),
     },
     bodyContainer: {
-        backgroundColor: 'green',
-        padding: 10,
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: scale(60),
+        height: verticalScale(40),
+        borderRadius: moderateScale(30),
         alignItems: 'center',
+        justifyContent: 'center',
 
     },
 })
